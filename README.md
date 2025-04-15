@@ -15,7 +15,7 @@
 - A method to resolve range ambiguity.  
 
 **Data and Code File Annotations**:  
-- The collected data by Lidar system and simulation are stored in the `/data` folder.  
+- The collected data by simulation are stored in the `/data` folder.  
 - Monte Carlo data generation code is located in `/monte_carlo_gen`.  
 - Count rate model validation code is in `/count_rate_model`.  
 - Correction algorithm simulation and verification are in `/correct_simulation_ver`.  
