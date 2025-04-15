@@ -1,20 +1,25 @@
 # High-counting-rate-single-photon-LiDAR-with-free-running-InGaAs-InP-SPAD
 
-<P>单光子探测激光雷达计数率越高，信息获取速度越快，探测速度越快。文章采用两种方式提高系统计数率：1.提高回波光子信号通量，即提高回波信号通量，单个脉冲周期信号通量控制在[0.5,3]个光子之间；2.提高激光重复频率，重复频率达到3.125MHz。
-<P>
-  
-**目前技术存在问题**：1.缺少关于光子计数率与信号通量和激光重频的数学模型；2.激光雷达系统工作在高重频高通量的状态，会带来波形畸变，引起非线性误差；3.高重频会带来距离模糊问题。
-  
-<P>
-  
-**文章主要工作内容**：包含一个计数率数学模型，一种高重频高通量TCSPC波形校正算法，和一种解距离模糊方法。
-  
-<P>
-  
-**数据代码文件注释**
-采集数据为"/data"文件夹;  
-蒙特卡洛数据生成代码"/mente_carlo_gen";    
-计数率模型验证代码在"/count_rate_model";   
-校正算法仿真验证在"/correct_simulation_ver";  
-灰阶板实验代码为"/gray_scale_plate";   
-40-120m建筑测绘场景代码为"/40_120m_building_mapping"。
+**Single-Photon Detection LiDAR**: A higher count rate in single-photon detection LiDAR leads to faster information acquisition and detection speed. The paper employs two methods to improve the system count rate:  
+1. Increasing the echo photon signal flux, with the signal flux per pulse cycle controlled within the range of [0.5, 3] photons.  
+2. Increasing the laser repetition frequency, achieving a repetition rate of 3.125 MHz.  
+
+**Current Technical Challenges**:  
+1. Lack of a mathematical model describing the relationship between photon count rate, signal flux, and laser repetition frequency.  
+2. Operating the LiDAR system under high repetition frequency and high flux conditions can cause waveform distortion, leading to nonlinear errors.  
+3. High repetition frequency introduces range ambiguity issues.  
+
+**Main Contributions of the Paper**:   
+- A mathematical model for count rate.  
+- A waveform correction algorithm for high-repetition-frequency and high-fllux Time-Correlated Single-Photon Counting (TCSPC).  
+- A method to resolve range ambiguity.  
+
+**Data and Code File Annotations**:  
+- The collected data by Lidar system and simulation are stored in the `/data` folder.  
+- Monte Carlo data generation code is located in `/monte_carlo_gen`.  
+- Count rate model validation code is in `/count_rate_model`.  
+- Correction algorithm simulation and verification are in `/correct_simulation_ver`.  
+- Gray-scale plate experiment code is in `/gray_scale_plate`.  
+- Building mapping scenario (40–120 m) code is in `/40_120m_building_mapping`.  
+
+
