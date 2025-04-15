@@ -19,7 +19,7 @@
 - Monte Carlo data generation code is located in `/monte_carlo_gen`.  
 - Count rate model validation code is in `/count_rate_model`.  
 - Correction algorithm simulation and verification are in `/correct_simulation_ver`.  
-- Gray-scale plate experiment code is in `/gray_scale_plate`.  
-- Building mapping scenario (40–120 m) code is in `/40_120m_building_mapping`.  
+- Gray-scale plate experiment code and data are in `/gray_scale_plate`.  
+- Building mapping scenario (40–120 m) code and data are in `/40_120m_building_mapping`.  
 
 
