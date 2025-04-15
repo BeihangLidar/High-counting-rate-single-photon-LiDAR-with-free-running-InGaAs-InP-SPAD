@@ -7,12 +7,12 @@
 **Current Technical Challenges**:  
 1. Lack of a mathematical model describing the relationship between photon count rate, signal flux, and laser repetition frequency.  
 2. Operating the LiDAR system under high repetition frequency and high flux conditions can cause waveform distortion, leading to nonlinear errors.  
-3. High repetition frequency introduces range ambiguity issues.  
+3. High repetition frequency laser ranging introduces range ambiguity issues.  
 
 **Main Contributions of the Paper**:   
-- A mathematical model for count rate.  
+- A mathematical model of counting rate related to signal flux and laser refrequency.  
 - A waveform correction algorithm for high-repetition-frequency and high-fllux Time-Correlated Single-Photon Counting (TCSPC).  
-- A method to resolve range ambiguity.  
+- A method for solving range ambiguity by dual frequency laser ranging.  
 
 **Data and Code File Annotations**:  
 - The collected data by simulation are stored in the `/data` folder.  
