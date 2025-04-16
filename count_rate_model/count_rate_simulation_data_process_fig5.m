@@ -1,10 +1,10 @@
 % 
-%% ÀíÂÛ¼ÆËã
+%% ç†è®ºè®¡ç®—
 clc;clear;close all;
 Ns=[0.05 0.2 0.5 1 2 inf];
 fr=0.1e6*([0.01:0.01:50]);
 tr=1./fr;
-td=1200e-9; % ËÀÊ±¼ä1200ns
+td=1200e-9; % æ­»æ—¶é—´1200ns
 N=floor(td./tr);
 for j=1:length(Ns)
     for i=1:length(N)
@@ -42,13 +42,14 @@ legend('Ns=0.05','Ns=0.2','Ns=0.5', 'Ns=1','Ns=2','Ns=inf');
 
 clc;clear; 
 
-%% ³õÊ¼»¯
+%% åˆå§‹åŒ–
 Ns_ground_truth=[0.05 0.2 0.5 1 2];
-td=1200; % ËÀÇøÊ±¼ä£¬µ¥Î»ns
+td=1200; % æ­»åŒºæ—¶é—´ï¼Œå•ä½ns
+currentFolder = pwd;
 
 for j=1:length(Ns_ground_truth)
     for i=0.5e5:0.5e5:50e5
-        filename=['E:\13.SPL_code\optica´úÂëÊı¾İ\spl_driver_V10_house_20250125\data\paper\optica\optica_simulation\count_rate\fr_',num2str(i),'fn_0k_Ns_',num2str(Ns_ground_truth(j)),'.mat'];
+        filename=[currentFolder,'\data\count_rate_ver\fr_',num2str(i),'fn_0k_Ns_',num2str(Ns_ground_truth(j)),'.mat'];
         load(filename);
         data(i/0.5e5,j)=length(s_TDC)/0.2e-3/1000;
     end
@@ -68,25 +69,25 @@ for j=1:length(Ns_ground_truth)
     end
 end
 figure(3);
-plot([0,5e6]./1e6,1/(td*1e-9)*ones(2,1)/1000,'--k','LineWidth',1.5);% »æÖÆ±¥ºÍ¼ÆÊıÂÊ
+plot([0,5e6]./1e6,1/(td*1e-9)*ones(2,1)/1000,'--k','LineWidth',1.5);% ç»˜åˆ¶é¥±å’Œè®¡æ•°ç‡
 hold on;figure_polish;
 
 
 function figure_polish()
     grid on;
-    set(gcf, 'Position', [200, 300, 280, 200]); % ÀıÈç£¬×óÏÂ½Ç×ø±êÎª (300, 300)£¬¿í¶ÈÎª 800£¬¸ß¶ÈÎª 600
+    set(gcf, 'Position', [200, 300, 280, 200]); % ä¾‹å¦‚ï¼Œå·¦ä¸‹è§’åæ ‡ä¸º (300, 300)ï¼Œå®½åº¦ä¸º 800ï¼Œé«˜åº¦ä¸º 600
 %     h_legend = legend(legend_content, 'Location', legend_position);
-% %     ÉèÖÃÍ¼ÀıÎÄ±¾µÄ×ÖÌå´óĞ¡Îª 20
+% %     è®¾ç½®å›¾ä¾‹æ–‡æœ¬çš„å­—ä½“å¤§å°ä¸º 20
 %     set(h_legend, 'FontSize', 10);
     ax=gca;
-    % ½«×ø±êÖáµÄ 'Box' ÊôĞÔÉèÖÃÎª 'on'£¬ÒÔÏÔÊ¾ÉÏÏÂ±ß¿ò
+    % å°†åæ ‡è½´çš„ 'Box' å±æ€§è®¾ç½®ä¸º 'on'ï¼Œä»¥æ˜¾ç¤ºä¸Šä¸‹è¾¹æ¡†
 %     set(gca,'FontName','Times New Roman','fontsize',10.5);
     ax.Box = 'on';
-    ax.LineWidth=1.5;% ÄÚ±ß¿ò´ÖÏ¸
-    ax.YAxis.LineWidth=1.5;% Íâ±ß¿ò´ÖÏ¸
-    ax.XAxis.LineWidth=1.5;% Íâ±ß¿ò´ÖÏ¸
+    ax.LineWidth=1.5;% å†…è¾¹æ¡†ç²—ç»†
+    ax.YAxis.LineWidth=1.5;% å¤–è¾¹æ¡†ç²—ç»†
+    ax.XAxis.LineWidth=1.5;% å¤–è¾¹æ¡†ç²—ç»†
     ax.GridAlpha=0.1;
-    set(gcf, 'color', 'white');% ½«Í¼ĞÎµÄ±³¾°ÑÕÉ«ÉèÖÃÎª°×É«
+    set(gcf, 'color', 'white');% å°†å›¾å½¢çš„èƒŒæ™¯é¢œè‰²è®¾ç½®ä¸ºç™½è‰²
 
 end
 
