@@ -23,11 +23,11 @@
 - Building mapping scenario (40–120 m) code and data are in `/40_120m_building_mapping`.  
 
 **Usage Steps**
-- 1. Download the code repository files and extract them;
-- 2. Download the data files:  
-  - Place the 'gray_scale_plate' data file in the `./gray_scale_plate` folder.  
-  - Place the '20250122-1231-two-repetition-rate' data file in the `./40_120m_building_mapping` folder.  
-  - Extract both archives after placement;
-- 3. Extract the data files inside the `/data` folder;
-- 4. Add the entire directory to the MATLAB path (tested on version 2018b);
-- 5. Execute the scripts.
+1. Download the code repository files and extract them;
+2. Download the data files:  
+- Place the 'gray_scale_plate' data file in the `./gray_scale_plate` folder.  
+- Place the '20250122-1231-two-repetition-rate' data file in the `./40_120m_building_mapping` folder.  
+- Extract both archives after placement;
+3. Extract the data files inside the `/data` folder;
+4. Add the entire directory to the MATLAB path (tested on version 2018b);
+5. Execute the scripts.
