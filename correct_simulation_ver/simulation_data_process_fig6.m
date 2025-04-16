@@ -1,19 +1,20 @@
-% Fig. 7 Simulation results
+% Fig. 6 Simulation results
 clc;clear; close all;
 Syncrate=3.125e6;
-Tacq=0.2; % µ¥Î»ÊÇms
+Tacq=0.2; % å•ä½æ˜¯ms
 Resolution_ps=16;
 
-%% ³õÊ¼»¯
+%% åˆå§‹åŒ–
 Ns_ground_truth=0.05:0.025:20;
 pulse_width=0.39;
-td=1200; % ËÀÇøÊ±¼ä£¬µ¥Î»ns
+td=1200; % æ­»åŒºæ—¶é—´ï¼Œå•ä½ns
 count_rate=zeros(length(Ns_ground_truth),1);
 
 laser_repetition=double(Syncrate);
+currentFolder=pwd;
 
 for i=1:length(Ns_ground_truth)
-    filename=['E:\13.SPL_code\optica´úÂëÊı¾İ\spl_driver_V10_house_20250125\data\paper\optica\optica_simulation\data_3.125MHz\fn_200k_Ns_',num2str(Ns_ground_truth(i)),'.mat'];
+    filename=[currentFolder,'\data\correct_ver\fn_200k_Ns_',num2str(Ns_ground_truth(i)),'.mat'];
     load(filename);
     [num_t,num]=his_fig_plot(s_TDC,Resolution_ps/1000,laser_repetition);
     count_rate(i)=length(s_TDC)/Tacq;
@@ -22,7 +23,7 @@ for i=1:length(Ns_ground_truth)
 %     [max_value,max_index]=maxk(num2,n_rep);
     [num_reshape,index_pulse]=his_max_find(num,num_t,Resolution_ps);
     resolution_ns=Resolution_ps/1000;
-%     index_pulse=round(max_index(1)-3*pulse_width/resolution_ns):round(max_index(1)+4*pulse_width/resolution_ns); % Ö»ĞèÒª´¦ÀíÒ»¸ö¾Í¿ÉÒÔÁË
+%     index_pulse=round(max_index(1)-3*pulse_width/resolution_ns):round(max_index(1)+4*pulse_width/resolution_ns); % åªéœ€è¦å¤„ç†ä¸€ä¸ªå°±å¯ä»¥äº†
     [flight_time_recover, flux_recover,flight_time_orig,flux_orig,~]=correction_optica(index_pulse, num2, Tacq/1000,double(laser_repetition/n_rep),resolution_ns,td);
 %     [flight_time_recover, flux_recover,waveform_recover]=correction(index_pulse, num2, Tacq/1000,double(laser_repetition/n_rep),resolution_ns,td);
 %     figure(1);subplot(4,1,1);
@@ -33,7 +34,7 @@ for i=1:length(Ns_ground_truth)
     data_all(i,:)=[flight_time_orig,flux_orig,flight_time_recover, flux_recover];
 
     waitbar(i/length(Ns_ground_truth));
-%     titleStr = ['ĞÅºÅÍ¨Á¿=',num2str(Ns_ground_truth(i)/4)];
+%     titleStr = ['ä¿¡å·é€šé‡=',num2str(Ns_ground_truth(i)/4)];
     
     y=guass(num_t,Ns_ground_truth(i)/4);
     up_bun=max(y*Tacq/1000*laser_repetition)*10;
@@ -44,15 +45,15 @@ for i=1:length(Ns_ground_truth)
 %     plot3(Ns_ground_truth(i)/4*ones(length(num_t),1),num_t,movmean(y*Tacq/1000*laser_repetition,10),'k-','LineWidth',1);hold on;
 % %     plot3(Ns_ground_truth(i)/4*[1 1],flight_time_orig*[1 1],[0,up_bun],'g--','LineWidth', 3);hold on;
 % %     plot3(Ns_ground_truth(i)/4*[1, 1],flight_time_recover*[1 1],[0,up_bun],'b--','LineWidth', 3);hold on;
-% %     title(sprintf('ĞÅºÅÍ¨Á¿£º%.4f¸öĞÅºÅ¹â×Ó', Ns_ground_truth(i)/4));
+% %     title(sprintf('ä¿¡å·é€šé‡ï¼š%.4fä¸ªä¿¡å·å…‰å­', Ns_ground_truth(i)/4));
 %     xlabel('Ns');ylabel('flight time/ns');zlabel('Count');ylim([207,213]);zlim([0,40]);xlim([0,5]);
 %     legend('Corrected','Uncorrected','Ground truth', 'Location', 'northwest');
 % %     hold off;
 %     figure_polish();
 end
-Ns_ground_truth=Ns_ground_truth/4; % ·ÂÕæÊı¾İÊ¹ÓÃµÄÊÇ3Âö³å·¢Éú
+Ns_ground_truth=Ns_ground_truth/4; % ä»¿çœŸæ•°æ®ä½¿ç”¨çš„æ˜¯3è„‰å†²å‘ç”Ÿ
 
-figure(5);% Ç¿¶ÈÍ¼
+figure(5);% å¼ºåº¦å›¾
 plot(Ns_ground_truth,data_all(:,2),'bo');hold on;
 plot(Ns_ground_truth,data_all(:,4),'r*');hold on;
 plot(Ns_ground_truth,Ns_ground_truth,'k');hold on;
@@ -65,9 +66,9 @@ figure_polish();
 legend('Uncorrected','Corrected','Ground truth', 'Location', 'northwest');
 
 distance_truth=210.*ones(length(Ns_ground_truth),1);
-figure(6);% Éî¶ÈÍ¼
-plot(Ns_ground_truth,data_all(:,1)*0.15,'bo');hold on;% Î´Ğ£Õı
-plot(Ns_ground_truth,data_all(:,3)*0.15,'r*');hold on;% Ğ£Õı
+figure(6);% æ·±åº¦å›¾
+plot(Ns_ground_truth,data_all(:,1)*0.15,'bo');hold on;% æœªæ ¡æ­£
+plot(Ns_ground_truth,data_all(:,3)*0.15,'r*');hold on;% æ ¡æ­£
 plot(Ns_ground_truth,distance_truth*0.15,'k');hold on;
 xlabel('Ns');
 ylabel('Depth/m');
@@ -76,7 +77,7 @@ xlim([0,5]);
 figure_polish(); 
 legend('Uncorrected','Corrected','Ground truth', 'Location', 'northwest');
 
-figure(11);% Ç¿¶ÈÍ¼
+figure(11);% å¼ºåº¦å›¾
 relative_error_uncorrected=(data_all(:,2)-Ns_ground_truth')./Ns_ground_truth';
 relative_error_corrected=(data_all(:,4)-Ns_ground_truth')./Ns_ground_truth';
 plot(count_rate,relative_error_uncorrected,'bo');hold on;
@@ -88,7 +89,7 @@ figure_polish();
 legend('Uncorrected','Corrected','Location', 'southwest');
 
 
-figure(7);% Ç¿¶ÈÍ¼
+figure(7);% å¼ºåº¦å›¾
 plot(count_rate,data_all(:,2)-Ns_ground_truth','bo');hold on;
 plot(count_rate,data_all(:,4)-Ns_ground_truth','r*');hold on;
 xlim([100,800]);ylim([-5,1]);
@@ -98,9 +99,9 @@ figure_polish();
 legend('Uncorrected','Corrected','Location', 'southwest');
 
 distance_truth=210.*ones(length(Ns_ground_truth),1);
-figure(8);% Éî¶ÈÍ¼
-plot(count_rate,data_all(:,1)*0.15-distance_truth*0.15,'bo');hold on;% Î´Ğ£Õı
-plot(count_rate,data_all(:,3)*0.15-distance_truth*0.15,'r*');hold on;% Ğ£Õı
+figure(8);% æ·±åº¦å›¾
+plot(count_rate,data_all(:,1)*0.15-distance_truth*0.15,'bo');hold on;% æœªæ ¡æ­£
+plot(count_rate,data_all(:,3)*0.15-distance_truth*0.15,'r*');hold on;% æ ¡æ­£
 xlabel('Count rate/kHz');ylabel('Depth error/m');
 xlim([100,800]);ylim([-0.07,0.03]);
 
@@ -108,8 +109,8 @@ figure_polish();
 legend('Uncorrected','Corrected','Location', 'southwest');
 
 % ylim([31.46,31.52]);
-%% ¾«¶È¼ÆËã
-% Í¨Á¿¾«¶È¼ÆËã
+%% ç²¾åº¦è®¡ç®—
+% é€šé‡ç²¾åº¦è®¡ç®—
 index_pulse=Ns_ground_truth<3 | Ns_ground_truth==3;
 Ns_select=Ns_ground_truth(index_pulse)';
 Ns_not_reco=data_all(:,2);
@@ -118,15 +119,15 @@ Ns_reco=data_all(:,4);
 Ns_reco=Ns_reco(index_pulse);
 std_Ns_not_reco=(sum((Ns_select-Ns_not_reco).^2)/length(Ns_not_reco)).^0.5;
 std_Ns_reco=(sum((Ns_select-Ns_reco).^2)/length(Ns_reco)).^0.5;
-fprintf('Î´Ğ£ÕıµÄĞÅºÅÍ¨Á¿¾«¶È£º%2.3f photons\n',std_Ns_not_reco);
-fprintf('Ğ£ÕıºóµÄĞÅºÅÍ¨Á¿¾«¶È£º%2.3f photons\n',std_Ns_reco);
+fprintf('æœªæ ¡æ­£çš„ä¿¡å·é€šé‡ç²¾åº¦ï¼š%2.3f photons\n',std_Ns_not_reco);
+fprintf('æ ¡æ­£åçš„ä¿¡å·é€šé‡ç²¾åº¦ï¼š%2.3f photons\n',std_Ns_reco);
 std_relative_error_uncorrected=(sum(relative_error_uncorrected(index_pulse).^2)/length(index_pulse)).^0.5;
 std_relative_error_corrected=(sum(relative_error_corrected(index_pulse)).^2/length(index_pulse)).^0.5;
-fprintf('Î´Ğ£ÕıµÄĞÅºÅÍ¨Á¿Ïà¶ÔÎó²î£º%2.3f\n',std_relative_error_uncorrected);
-fprintf('Ğ£ÕıºóµÄĞÅºÅÍ¨Á¿Ïà¶ÔÎó²î£º%2.3f\n',std_relative_error_corrected);
+fprintf('æœªæ ¡æ­£çš„ä¿¡å·é€šé‡ç›¸å¯¹è¯¯å·®ï¼š%2.3f\n',std_relative_error_uncorrected);
+fprintf('æ ¡æ­£åçš„ä¿¡å·é€šé‡ç›¸å¯¹è¯¯å·®ï¼š%2.3f\n',std_relative_error_corrected);
 
 
-% ¾àÀë¾«¶È¼ÆËã
+% è·ç¦»ç²¾åº¦è®¡ç®—
 distance_select=distance_truth(index_pulse)*0.15;
 dis_not_reco=data_all(:,1)*0.15;
 dis_reco=data_all(:,3)*0.15;
@@ -134,14 +135,14 @@ dis_not_reco=dis_not_reco(index_pulse);
 dis_reco=dis_reco(index_pulse);
 std_dis_not_reco=(sum((distance_select-dis_not_reco).^2)/length(dis_not_reco)).^0.5;
 std_dis_reco=(sum((distance_select-dis_reco).^2)/length(dis_reco)).^0.5;
-fprintf('Î´Ğ£ÕıµÄĞÅºÅÉî¶È¾«¶È£º%2.4f m\n',std_dis_not_reco);
-fprintf('Ğ£ÕıºóµÄĞÅºÅÉî¶È¾«¶È£º%2.4f m\n',std_dis_reco);
+fprintf('æœªæ ¡æ­£çš„ä¿¡å·æ·±åº¦ç²¾åº¦ï¼š%2.4f m\n',std_dis_not_reco);
+fprintf('æ ¡æ­£åçš„ä¿¡å·æ·±åº¦ç²¾åº¦ï¼š%2.4f m\n',std_dis_reco);
 %%
 figure(9);
 plot(Ns_ground_truth(index_pulse),count_rate(index_pulse),'.-');
 
 function [num_t2,num2,a]=reshape_wf(num,num_t,td,laser_repetition)
-    a=ceil((td*1e-9)/(1/laser_repetition)); % ÖÜÆÚÀ©Õ¹±¶Êı
+    a=ceil((td*1e-9)/(1/laser_repetition)); % å‘¨æœŸæ‰©å±•å€æ•°
     num1=num/a;
     num2=repmat(num1,a,1);
     resolution=num_t(2)-num_t(1);
@@ -149,8 +150,8 @@ function [num_t2,num2,a]=reshape_wf(num,num_t,td,laser_repetition)
 end
 
 function [num_t,num]=his_fig_plot(scatter_y,resolution,laser_frequency)
-    % ÓÃÓÚ½«É¢µãÍ¼×ª»»ÎªÖ±·½Í¼£¬Í¨¹ı½«É¢µãÊı¾İ·ÖÅäµ½ÏàÓ¦µÄÊ±¼äbinÖĞ
-%  ÓÃÓÚ½«É¢µãÍ¼Éú³ÉÖ±·½Í¼
+    % ç”¨äºå°†æ•£ç‚¹å›¾è½¬æ¢ä¸ºç›´æ–¹å›¾ï¼Œé€šè¿‡å°†æ•£ç‚¹æ•°æ®åˆ†é…åˆ°ç›¸åº”çš„æ—¶é—´binä¸­
+%  ç”¨äºå°†æ•£ç‚¹å›¾ç”Ÿæˆç›´æ–¹å›¾
     size_length=ceil(1/laser_frequency*1e9/resolution);
     scatter_y=scatter_y(scatter_y>0);
     num=zeros(size_length,1);
@@ -163,38 +164,38 @@ end
 
 function figure_polish()
     grid on;
-    set(gcf, 'Position', [200, 300, 280, 200]); % ÀıÈç£¬×óÏÂ½Ç×ø±êÎª (300, 300)£¬¿í¶ÈÎª 800£¬¸ß¶ÈÎª 600
+    set(gcf, 'Position', [200, 300, 280, 200]); % ä¾‹å¦‚ï¼Œå·¦ä¸‹è§’åæ ‡ä¸º (300, 300)ï¼Œå®½åº¦ä¸º 800ï¼Œé«˜åº¦ä¸º 600
 %     h_legend = legend(legend_content, 'Location', legend_position);
-% %     ÉèÖÃÍ¼ÀıÎÄ±¾µÄ×ÖÌå´óĞ¡Îª 20
+% %     è®¾ç½®å›¾ä¾‹æ–‡æœ¬çš„å­—ä½“å¤§å°ä¸º 20
 %     set(h_legend, 'FontSize', 10);
     ax=gca;
-    % ½«×ø±êÖáµÄ 'Box' ÊôĞÔÉèÖÃÎª 'on'£¬ÒÔÏÔÊ¾ÉÏÏÂ±ß¿ò
+    % å°†åæ ‡è½´çš„ 'Box' å±æ€§è®¾ç½®ä¸º 'on'ï¼Œä»¥æ˜¾ç¤ºä¸Šä¸‹è¾¹æ¡†
 %     set(gca,'FontName','Times New Roman','fontsize',10.5);
     ax.Box = 'on';
-    ax.LineWidth=1.5;% ÄÚ±ß¿ò´ÖÏ¸
-    ax.YAxis.LineWidth=1.5;% Íâ±ß¿ò´ÖÏ¸
-    ax.XAxis.LineWidth=1.5;% Íâ±ß¿ò´ÖÏ¸
+    ax.LineWidth=1.5;% å†…è¾¹æ¡†ç²—ç»†
+    ax.YAxis.LineWidth=1.5;% å¤–è¾¹æ¡†ç²—ç»†
+    ax.XAxis.LineWidth=1.5;% å¤–è¾¹æ¡†ç²—ç»†
     ax.GridAlpha=0.1;
-    set(gcf, 'color', 'white');% ½«Í¼ĞÎµÄ±³¾°ÑÕÉ«ÉèÖÃÎª°×É«
+    set(gcf, 'color', 'white');% å°†å›¾å½¢çš„èƒŒæ™¯é¢œè‰²è®¾ç½®ä¸ºç™½è‰²
     % ax.XMinorGrid='on';
     % ax.YMinorGrid='on';
 end
 
 function y=guass(t,Ns)
-% µ¥¹â×ÓÌ½²â 20240122-1
-    theta=0.3934; %20271007Ê¹ÓÃµÄÂö³å¿í¶ÈÎª0.4
+% å•å…‰å­æ¢æµ‹ 20240122-1
+    theta=0.3934; %20271007ä½¿ç”¨çš„è„‰å†²å®½åº¦ä¸º0.4
     ts=210;
     y=Ns/((2*pi)^0.5*theta)*exp(-((t-ts).^2)./(2*theta^2));
     y=y/62.5;
 end
 
 function [num_reshape,index_pulse]=his_max_find(num,num_t,Resolution_ps)
-%  ÓÃÓÚ½«É¢µãÍ¼Éú³ÉÖ±·½Í¼ ±ê×¼»¯
-% ¼ÆËãÖÊĞÄºÍĞÅºÅÍ¨Á¿
+%  ç”¨äºå°†æ•£ç‚¹å›¾ç”Ÿæˆç›´æ–¹å›¾ æ ‡å‡†åŒ–
+% è®¡ç®—è´¨å¿ƒå’Œä¿¡å·é€šé‡
 
-    pw=0.5; % Âö³å¿í¶ÈÉèÖÃÎªpw£¨¾ù·½¸ù¿í¶È£©£¬µ¥Î»ÄÉÃë
+    pw=0.5; % è„‰å†²å®½åº¦è®¾ç½®ä¸ºpwï¼ˆå‡æ–¹æ ¹å®½åº¦ï¼‰ï¼Œå•ä½çº³ç§’
     num_t=(1:length(num))';
-    %% Âö³åÕÒ×î´óÖµ
+    %% è„‰å†²æ‰¾æœ€å¤§å€¼
     width=ceil(3*pw/(Resolution_ps/1000));
     paddedArray=zeros(ceil(length(num)/width)*width-length(num),1);
     num_padded=[num; paddedArray];
