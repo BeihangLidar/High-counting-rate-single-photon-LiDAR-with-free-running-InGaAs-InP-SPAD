@@ -1,7 +1,7 @@
 clc;clear all; close all;
-load('E:\13.SPL_code\optica´úÂëÊý¾Ý\spl_driver_V10_house_20250125\data\paper\optica\»Ò½×°å\20240102-1-low-flux_result.mat');
+load('20240102-1-low-flux_result.mat');
 clearvars -except output;
-load('E:\13.SPL_code\optica´úÂëÊý¾Ý\spl_driver_V10_house_20250125\data\paper\optica\»Ò½×°å\20250101-2-3125-result.mat');
+load('20250101-2-3125-result.mat');
 close all;clearvars -except Depth_array_point fast_array_point slow_array_point output_point data_all Depth_recovery fast_array_point_recovery slow_array_point_recovery output;
 Index_fliter=fast_array_point<0.19 & fast_array_point>-0.06;
 output=output(Index_fliter,:);
@@ -14,62 +14,60 @@ Depth_recovery=Depth_recovery(Index_fliter);
 fast_array_point_recovery=fast_array_point_recovery(Index_fliter);
 slow_array_point_recovery=slow_array_point_recovery(Index_fliter);
 
-
-
-figure(8);% ¿´Éî¶È Î´²¹³¥
+figure(8);% çœ‹æ·±åº¦ æœªè¡¥å¿
 scatter3(Depth_array_point,fast_array_point,slow_array_point,2, Depth_array_point, 'filled');hold on;xlabel('Depth/m');ylabel('Fast axis/m');zlabel('Fast axis/m');
 xlim([8.30,8.41]);zlim([-0.72,-0.48]);ylim([-0.09,0.22]);caxis([8.36,8.4]);
 figure_polish;
 
-figure(9);% ¿´Ç¿¶È Î´²¹³¥
+figure(9);% çœ‹å¼ºåº¦ æœªè¡¥å¿
 scatter3(Depth_array_point,fast_array_point,slow_array_point,2, output_point(:,4), 'filled');hold on;xlabel('Depth/m');ylabel('Fast axis/m');zlabel('Slow axis/m');
 xlim([8.30,8.41]);zlim([-0.72,-0.48]);ylim([-0.09,0.22]);
 colormap gray;colorbar;
 figure_polish;
-set(gca, 'XDir', 'reverse'); % ·´×ªZÖá
-set(gca, 'ZDir', 'reverse'); % ·´×ªZÖá
-set(gca, 'YDir', 'reverse'); % ·´×ªZÖá
+set(gca, 'XDir', 'reverse'); % åè½¬Zè½´
+set(gca, 'ZDir', 'reverse'); % åè½¬Zè½´
+set(gca, 'YDir', 'reverse'); % åè½¬Zè½´
 
-figure(10);% ¿´Ç¿¶È ²¹³¥ºó
+figure(10);% çœ‹å¼ºåº¦ è¡¥å¿åŽ
 scatter3(Depth_recovery,fast_array_point_recovery,slow_array_point_recovery,2, data_all(:,2), 'filled');hold on;xlabel('Depth/m');ylabel('Fast axis/m');zlabel('Slow axis/m');
 xlim([8.30,8.41]);zlim([-0.72,-0.48]);ylim([-0.09,0.22]);caxis([0,3]);
 colormap gray;colorbar;
 figure_polish;
-set(gca, 'XDir', 'reverse'); % ·´×ªZÖá
-set(gca, 'ZDir', 'reverse'); % ·´×ªZÖá
-set(gca, 'YDir', 'reverse'); % ·´×ªZÖá
+set(gca, 'XDir', 'reverse'); % åè½¬Zè½´
+set(gca, 'ZDir', 'reverse'); % åè½¬Zè½´
+set(gca, 'YDir', 'reverse'); % åè½¬Zè½´
 
 
 figure(11);
 scatter3(output(:,3),output(:,1),output(:,2),2, output(:,4), 'filled');hold on;xlabel('Depth/m');ylabel('Fast axis/m');zlabel('Slow axis/m');
-set(gca, 'XDir', 'reverse'); % ·´×ªZÖá
-set(gca, 'ZDir', 'reverse'); % ·´×ªZÖá
-set(gca, 'YDir', 'reverse'); % ·´×ªZÖá
+set(gca, 'XDir', 'reverse'); % åè½¬Zè½´
+set(gca, 'ZDir', 'reverse'); % åè½¬Zè½´
+set(gca, 'YDir', 'reverse'); % åè½¬Zè½´
 colormap gray;
-colorbar;  % Ìí¼ÓÑÕÉ«Ìõ
+colorbar;  % æ·»åŠ é¢œè‰²æ¡
 xlim([8.35,8.41]);zlim([-0.72,-0.48]);ylim([-0.09,0.22]);caxis([0,0.015]);
 figure_polish; % title('Ground truth');
 
 error_Depth_recovery=abs(Depth_recovery-output(:,3));
 error_Depth_array_point=abs(Depth_array_point-output(:,3));
 
-figure(12);% Î´Ð£ÕýÉî¶ÈÎó²î
+figure(12);% æœªæ ¡æ­£æ·±åº¦è¯¯å·®
 scatter3(error_Depth_array_point,fast_array_point,slow_array_point,1, error_Depth_array_point, 'filled');hold on;
 xlabel('Depth/m');ylabel('Fast axis/m');zlabel('Slow axis/m');caxis([0,0.05]);
 zlim([-0.72,-0.48]);ylim([-0.09,0.22]);xlim([0,0.05]);
-set(gca, 'XDir', 'reverse'); % ·´×ªZÖá
-set(gca, 'ZDir', 'reverse'); % ·´×ªZÖá
-set(gca, 'YDir', 'reverse'); % ·´×ªZÖá
+set(gca, 'XDir', 'reverse'); % åè½¬Zè½´
+set(gca, 'ZDir', 'reverse'); % åè½¬Zè½´
+set(gca, 'YDir', 'reverse'); % åè½¬Zè½´
 figure_polish;colorbar;
 view(90,0);
 
-figure(13);% Ð£ÕýºóÉî¶ÈÎó²î
+figure(13);% æ ¡æ­£åŽæ·±åº¦è¯¯å·®
 scatter3(error_Depth_recovery,fast_array_point_recovery,slow_array_point_recovery,1, error_Depth_recovery, 'filled');hold on;
 xlabel('Depth/m');ylabel('Fast axis/m');zlabel('Slow axis/m');caxis([0,0.05]);
 zlim([-0.72,-0.48]);ylim([-0.09,0.22]);xlim([0,0.05]);
-set(gca, 'XDir', 'reverse'); % ·´×ªZÖá
-set(gca, 'ZDir', 'reverse'); % ·´×ªZÖá
-set(gca, 'YDir', 'reverse'); % ·´×ªZÖá
+set(gca, 'XDir', 'reverse'); % åè½¬Zè½´
+set(gca, 'ZDir', 'reverse'); % åè½¬Zè½´
+set(gca, 'YDir', 'reverse'); % åè½¬Zè½´
 figure_polish;colorbar;
 view(90,0);
 
@@ -77,16 +75,16 @@ error_Depth_array_point_effect=error_Depth_array_point(error_Depth_array_point>-
 index_isnan2=isnan(error_Depth_array_point_effect);
 error_Depth_array_point_not_NaN=error_Depth_array_point_effect(~index_isnan2);
 STD_Depth_array_point=std(error_Depth_array_point_not_NaN);
-fprintf('Î´²¹³¥Êý¾ÝÐÅºÅÉî¶ÈÎó²î·½²îÎª£º%3f m\n',STD_Depth_array_point);
+fprintf('æœªè¡¥å¿æ•°æ®ä¿¡å·æ·±åº¦è¯¯å·®æ–¹å·®ä¸ºï¼š%3f m\n',STD_Depth_array_point);
 
 error_Depth_recovery_effect=error_Depth_recovery(error_Depth_recovery>-0.07 & error_Depth_recovery<0.03);
 index_isnan1=isnan(error_Depth_recovery_effect);
 error_Depth_recovery_not_NaN=error_Depth_recovery_effect(~index_isnan1);
 STD_Depth_recovery=std(error_Depth_recovery_not_NaN);
-fprintf('²¹³¥ºóÊý¾ÝÐÅºÅÉî¶ÈÎó²î·½²îÎª£º%3f m\n',STD_Depth_recovery);
+fprintf('è¡¥å¿åŽæ•°æ®ä¿¡å·æ·±åº¦è¯¯å·®æ–¹å·®ä¸ºï¼š%3f m\n',STD_Depth_recovery);
 
-% Ç¿¶ÈÎó²î data_all(:,2)ÊÇ²¹³¥Êý¾Ý£¬output_point(:,4)ÊÇÎ´²¹³¥Êý¾Ý£¬output(:,4)ÊÇÕæÖµ
-% ¼ÙÈçÊÇµã¶Ôµã¼ÆËãÎó²î
+% å¼ºåº¦è¯¯å·® data_all(:,2)æ˜¯è¡¥å¿æ•°æ®ï¼Œoutput_point(:,4)æ˜¯æœªè¡¥å¿æ•°æ®ï¼Œoutput(:,4)æ˜¯çœŸå€¼
+% å‡å¦‚æ˜¯ç‚¹å¯¹ç‚¹è®¡ç®—è¯¯å·®
 flux_is_n_inf_index=~isinf(data_all(:,2));
 mean_Ns_reco=mean(flux_is_n_inf_index);
 mean_Ns=mean(output_point(flux_is_n_inf_index,4));
@@ -104,7 +102,7 @@ plot(nor_GT,'-k');hold on;
 std_reco_flux=mean(abs(nor_Ns_reco-nor_GT));
 std_flux=mean(abs(nor_Ns-nor_GT));
 
-data1=[Depth_array_point(flux_is_n_inf_index) fast_array_point(flux_is_n_inf_index) slow_array_point(flux_is_n_inf_index) output_point(flux_is_n_inf_index,4)];% Î´²¹³¥
+data1=[Depth_array_point(flux_is_n_inf_index) fast_array_point(flux_is_n_inf_index) slow_array_point(flux_is_n_inf_index) output_point(flux_is_n_inf_index,4)];% æœªè¡¥å¿
 data2=[Depth_array_point fast_array_point slow_array_point output_point(:,4)];
 [index1,index2,index3,index4,index5,index6]=data_region_segment(data1);
 Depth_isn_inf=Depth_array_point(flux_is_n_inf_index);
@@ -118,9 +116,9 @@ scatter3(Depth_isn_inf(index3),fast_isn_inf(index3),slow_is_n_inf(index3),1, nor
 scatter3(Depth_isn_inf(index4),fast_isn_inf(index4),slow_is_n_inf(index4),1, nor_Ns(index4), 'filled');hold on;
 scatter3(Depth_isn_inf(index5),fast_isn_inf(index5),slow_is_n_inf(index5),1, nor_Ns(index5), 'filled');hold on;
 scatter3(Depth_isn_inf(index6),fast_isn_inf(index6),slow_is_n_inf(index6),1, nor_Ns(index6), 'filled');hold on;
-set(gca, 'XDir', 'reverse'); % ·´×ªZÖá
-set(gca, 'ZDir', 'reverse'); % ·´×ªZÖá
-set(gca, 'YDir', 'reverse'); % ·´×ªZÖá
+set(gca, 'XDir', 'reverse'); % åè½¬Zè½´
+set(gca, 'ZDir', 'reverse'); % åè½¬Zè½´
+set(gca, 'YDir', 'reverse'); % åè½¬Zè½´
 view(90,0);
 
 mean_segment1_reco=mean(nor_Ns_reco(index1));
@@ -158,12 +156,12 @@ legend('Corrected','Uncorrected');
 figure_polish1();
 std_a1_a3=std(a1-a3);
 std_a2_a3=std(a2-a3);
-fprintf('Î´²¹³¥Êý¾ÝÐÅºÅÍ¨Á¿·½²îÎª£º%3f\n',std_a2_a3);
-fprintf('²¹³¥ºóÊý¾ÝÐÅºÅÍ¨Á¿·½²îÎª£º%3f\n',std_a1_a3);
+fprintf('æœªè¡¥å¿æ•°æ®ä¿¡å·é€šé‡æ–¹å·®ä¸ºï¼š%3f\n',std_a2_a3);
+fprintf('è¡¥å¿åŽæ•°æ®ä¿¡å·é€šé‡æ–¹å·®ä¸ºï¼š%3f\n',std_a1_a3);
 
 
 [index_1,index_2,index_3,index_4,index_5,index_6]=data_region_segment(data2);
-% »æÖÆÉî¶ÈÍ¼
+% ç»˜åˆ¶æ·±åº¦å›¾
 error_depth_block_recovery=[mean(error_Depth_recovery(index_2&flux_is_n_inf_index)),mean(error_Depth_recovery(index_1&flux_is_n_inf_index)),mean(error_Depth_recovery(index_4&flux_is_n_inf_index)),mean(error_Depth_recovery(index_3&flux_is_n_inf_index)),mean(error_Depth_recovery(index_6&flux_is_n_inf_index)),mean(error_Depth_recovery(index_5&flux_is_n_inf_index))];
 error_depth_block=[mean(error_Depth_array_point(index_2&flux_is_n_inf_index)),mean(error_Depth_array_point(index_1&flux_is_n_inf_index)),mean(error_Depth_array_point(index_4&flux_is_n_inf_index)),mean(error_Depth_array_point(index_3&flux_is_n_inf_index)),mean(error_Depth_array_point(index_6&flux_is_n_inf_index)),mean(error_Depth_array_point(index_5&flux_is_n_inf_index))];
 figure(17);
@@ -174,7 +172,7 @@ xlabel('Block order');ylabel('Depth error');
 figure_polish1();
 legend('Corrected','Uncorrected');
 
-% data2=[Depth_recovery,fast_array_point_recovery,slow_array_point_recovery,data_all(:,2)]; % ²¹³¥ºó
+% data2=[Depth_recovery,fast_array_point_recovery,slow_array_point_recovery,data_all(:,2)]; % è¡¥å¿åŽ
 % [segment1,segment2,segment3,segment4,segment5,segment6]=data_region_segment(data1);
 
 
@@ -182,20 +180,20 @@ legend('Corrected','Uncorrected');
 
 function figure_polish()
     grid on;
-    set(gcf, 'Position', [200, 300, 350, 150]); % ÀýÈç£¬×óÏÂ½Ç×ø±êÎª (300, 300)£¬¿í¶ÈÎª 800£¬¸ß¶ÈÎª 600
+    set(gcf, 'Position', [200, 300, 350, 150]); % ä¾‹å¦‚ï¼Œå·¦ä¸‹è§’åæ ‡ä¸º (300, 300)ï¼Œå®½åº¦ä¸º 800ï¼Œé«˜åº¦ä¸º 600
     view(90,0);
 %     h_legend = legend(legend_content, 'Location', legend_position);
-% %     ÉèÖÃÍ¼ÀýÎÄ±¾µÄ×ÖÌå´óÐ¡Îª 20
+% %     è®¾ç½®å›¾ä¾‹æ–‡æœ¬çš„å­—ä½“å¤§å°ä¸º 20
 %     set(h_legend, 'FontSize', 10);
     ax=gca;
-    % ½«×ø±êÖáµÄ 'Box' ÊôÐÔÉèÖÃÎª 'on'£¬ÒÔÏÔÊ¾ÉÏÏÂ±ß¿ò
+    % å°†åæ ‡è½´çš„ 'Box' å±žæ€§è®¾ç½®ä¸º 'on'ï¼Œä»¥æ˜¾ç¤ºä¸Šä¸‹è¾¹æ¡†
 %     set(gca,'FontName','Times New Roman','fontsize',10.5);
     ax.Box = 'on';
-    ax.LineWidth=1.5;% ÄÚ±ß¿ò´ÖÏ¸
-    ax.YAxis.LineWidth=1.5;% Íâ±ß¿ò´ÖÏ¸
-    ax.XAxis.LineWidth=1.5;% Íâ±ß¿ò´ÖÏ¸
+    ax.LineWidth=1.5;% å†…è¾¹æ¡†ç²—ç»†
+    ax.YAxis.LineWidth=1.5;% å¤–è¾¹æ¡†ç²—ç»†
+    ax.XAxis.LineWidth=1.5;% å¤–è¾¹æ¡†ç²—ç»†
     ax.GridAlpha=0.1;
-    set(gcf, 'color', 'white');% ½«Í¼ÐÎµÄ±³¾°ÑÕÉ«ÉèÖÃÎª°×É«
+    set(gcf, 'color', 'white');% å°†å›¾å½¢çš„èƒŒæ™¯é¢œè‰²è®¾ç½®ä¸ºç™½è‰²
     set(gca, 'Color', 'black');
     % ax.XMinorGrid='on';
     % ax.YMinorGrid='on';
@@ -220,19 +218,19 @@ end
 
 function figure_polish1()
     grid on;
-    set(gcf, 'Position', [200, 300, 250, 160]); % ÀýÈç£¬×óÏÂ½Ç×ø±êÎª (300, 300)£¬¿í¶ÈÎª 800£¬¸ß¶ÈÎª 600
+    set(gcf, 'Position', [200, 300, 250, 160]); % ä¾‹å¦‚ï¼Œå·¦ä¸‹è§’åæ ‡ä¸º (300, 300)ï¼Œå®½åº¦ä¸º 800ï¼Œé«˜åº¦ä¸º 600
 %     h_legend = legend(legend_content, 'Location', legend_position);
-% %     ÉèÖÃÍ¼ÀýÎÄ±¾µÄ×ÖÌå´óÐ¡Îª 20
+% %     è®¾ç½®å›¾ä¾‹æ–‡æœ¬çš„å­—ä½“å¤§å°ä¸º 20
 %     set(h_legend, 'FontSize', 10);
     ax=gca;
-    % ½«×ø±êÖáµÄ 'Box' ÊôÐÔÉèÖÃÎª 'on'£¬ÒÔÏÔÊ¾ÉÏÏÂ±ß¿ò
+    % å°†åæ ‡è½´çš„ 'Box' å±žæ€§è®¾ç½®ä¸º 'on'ï¼Œä»¥æ˜¾ç¤ºä¸Šä¸‹è¾¹æ¡†
 %     set(gca,'FontName','Times New Roman','fontsize',10.5);
     ax.Box = 'on';
-    ax.LineWidth=1.5;% ÄÚ±ß¿ò´ÖÏ¸
-    ax.YAxis.LineWidth=1.5;% Íâ±ß¿ò´ÖÏ¸
-    ax.XAxis.LineWidth=1.5;% Íâ±ß¿ò´ÖÏ¸
+    ax.LineWidth=1.5;% å†…è¾¹æ¡†ç²—ç»†
+    ax.YAxis.LineWidth=1.5;% å¤–è¾¹æ¡†ç²—ç»†
+    ax.XAxis.LineWidth=1.5;% å¤–è¾¹æ¡†ç²—ç»†
     ax.GridAlpha=0.1;
-    set(gcf, 'color', 'white');% ½«Í¼ÐÎµÄ±³¾°ÑÕÉ«ÉèÖÃÎª°×É«
+    set(gcf, 'color', 'white');% å°†å›¾å½¢çš„èƒŒæ™¯é¢œè‰²è®¾ç½®ä¸ºç™½è‰²
     % ax.XMinorGrid='on';
     % ax.YMinorGrid='on';
 end
