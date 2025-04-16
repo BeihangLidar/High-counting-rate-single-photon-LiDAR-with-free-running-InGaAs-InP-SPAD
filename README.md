@@ -1,4 +1,5 @@
 # High-counting-rate-single-photon-LiDAR-with-free-running-InGaAs-InP-SPAD
+by linjie lyu, duan li*
 
 **Single-Photon Detection LiDAR**: A higher count rate in single-photon detection LiDAR leads to faster information acquisition and detection speed. The paper employs two methods to improve the system count rate:  
 1. Increasing the echo photon signal flux, with the signal flux per pulse cycle controlled within the range of [0.5, 3] photons.  
